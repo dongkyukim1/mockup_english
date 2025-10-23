@@ -1,26 +1,451 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* 
+ * 폰트 설정:
+ * - Inter: 기본 UI 폰트
+ * - Noto Sans KR: 한글 텍스트용
+ */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Inter 폰트 클래스 */
+  .font-inter {
+    font-family: var(--font-inter), sans-serif;
+  }
+
+  /* Noto Sans KR 폰트 클래스 */
+  .font-noto {
+    font-family: var(--font-noto-sans-kr), sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  :root {
+    /* Aidu English Program - Blue/Indigo Theme */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    /* Card System */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    /* Popover System */
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary Colors - Indigo */
+    --primary: 238 76% 59%; /* #4F46E5 */
+    --primary-foreground: 0 0% 98%;
+    
+    /* Secondary Colors - Blue */
+    --secondary: 221 83% 53%; /* #2563EB */
+    --secondary-foreground: 0 0% 98%;
+
+    /* Muted Colors */
+    --muted: 210 16% 93%;
+    --muted-foreground: 215 13% 46%;
+
+    /* Accent Colors - Purple for Grammar */
+    --accent: 258 90% 66%; /* #8B5CF6 */
+    --accent-foreground: 0 0% 98%;
+
+    /* Destructive Colors */
+    --destructive: 0 100% 59%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Success Colors - Green for Vocabulary */
+    --success: 158 64% 52%; /* #10B981 */
+    --success-foreground: 0 0% 98%;
+
+    /* Warning Colors - Orange for Reading Timer */
+    --warning: 25 95% 53%; /* #F59E0B */
+    --warning-foreground: 0 0% 98%;
+
+    /* Info Colors */
+    --info: 199 89% 48%;
+    --info-foreground: 0 0% 98%;
+
+    /* UI Elements */
+    --border: 214 20% 91%;
+    --input: 214 20% 91%;
+    --ring: 238 76% 59%;
+
+    /* English Program Brand Colors */
+    --english-primary: 238 76% 59%; /* #4F46E5 Indigo */
+    --english-secondary: 221 83% 53%; /* #2563EB Blue */
+    --english-accent: 258 90% 66%; /* #8B5CF6 Purple */
+    --english-success: 158 64% 52%; /* #10B981 Green */
+
+    /* Skill Colors */
+    --vocabulary-color: 158 64% 52%; /* Green */
+    --grammar-color: 258 90% 66%; /* Purple */
+    --reading-color: 221 83% 53%; /* Blue */
+    --listening-color: 25 95% 53%; /* Orange */
+
+    /* Chart Colors */
+    --chart-1: 238 76% 59%;
+    --chart-2: 221 83% 53%;
+    --chart-3: 258 90% 66%;
+    --chart-4: 158 64% 52%;
+    --chart-5: 25 95% 53%;
+
+    /* Border Radius */
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  body {
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Korean Text Content */
+  .korean-text {
+    font-family: var(--font-noto-sans-kr), sans-serif;
+  }
+
+  /* Educational Content */
+  .educational-content {
+    line-height: 1.6;
+    word-spacing: 0.1em;
+  }
+
+  .educational-content h1,
+  .educational-content h2,
+  .educational-content h3 {
+    line-height: 1.4;
+    font-weight: 600;
+  }
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes celebrate {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  75% {
+    transform: scale(1.1) rotate(-5deg);
+  }
+}
+
+@keyframes flip-card {
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.3s ease-out forwards;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-celebrate {
+  animation: celebrate 0.6s ease-in-out;
+}
+
+.animate-flip {
+  animation: flip-card 0.6s ease-in-out;
+}
+
+/* Typography */
+.korean-optimized {
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* English Program Design System */
+
+/* 그라데이션 배경 - Indigo to Blue */
+.english-gradient-bg {
+  background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+}
+
+.english-gradient-extended {
+  background: linear-gradient(90deg, #4F46E5 0%, #6366F1 50%, #8B5CF6 100%);
+}
+
+.english-gradient-soft {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(99, 102, 241, 0.1) 100%);
+}
+
+/* 그라데이션 텍스트 - Indigo */
+.english-gradient-text {
+  background: linear-gradient(135deg, #4338CA 0%, #4F46E5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
+
+/* 글로우 효과 */
+.english-glow {
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+}
+
+.english-glow-hover:hover {
+  box-shadow: 0 8px 30px rgba(79, 70, 229, 0.4);
+}
+
+/* 카드 스타일 */
+.english-card {
+  background-color: white;
+  border-radius: 1rem;
+  border: 1px solid #e0e7ff;
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(79, 70, 229, 0.06);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.english-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #4F46E5 0%, #6366F1 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.english-card:hover {
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 12px 32px rgba(79, 70, 229, 0.15);
+  transform: translateY(-4px);
+  border-color: rgba(79, 70, 229, 0.3);
+}
+
+.english-card:hover::before {
+  opacity: 1;
+}
+
+/* 플래시카드 특별 스타일 */
+.flashcard {
+  background-color: white;
+  border-radius: 1rem;
+  perspective: 1000px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped {
+  transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+  backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+/* 버튼 - English Blue Theme */
+.english-button-primary {
+  background: linear-gradient(to right, #4F46E5, #6366F1);
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 2px 8px rgba(79, 70, 229, 0.25),
+    0 4px 16px rgba(79, 70, 229, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.english-button-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.english-button-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 4px 12px rgba(79, 70, 229, 0.3),
+    0 8px 24px rgba(79, 70, 229, 0.2);
+}
+
+.english-button-primary:hover::before {
+  left: 100%;
+}
+
+.english-button-primary:active {
+  transform: translateY(0) scale(1);
+}
+
+/* 배지 스타일 */
+.english-badge {
+  background: linear-gradient(to bottom right, #f9fafb, #f3f4f6);
+  color: #374151;
+  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.english-badge-primary {
+  background: linear-gradient(to bottom right, #4F46E5, #4338CA, #6366F1);
+  border: 1px solid transparent;
+  color: white;
+  font-weight: 600;
+  box-shadow: 
+    0 2px 6px rgba(79, 70, 229, 0.25),
+    0 4px 12px rgba(79, 70, 229, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Skill 특화 배지 */
+.badge-vocabulary {
+  background: linear-gradient(to bottom right, #10b981, #059669);
+  color: white;
+}
+
+.badge-grammar {
+  background: linear-gradient(to bottom right, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+.badge-reading {
+  background: linear-gradient(to bottom right, #3b82f6, #2563eb);
+  color: white;
+}
+
+/* 프로그레스 바 */
+.english-progress {
+  background: linear-gradient(90deg, #4F46E5 0%, #6366F1 50%, #8B5CF6 100%);
+  box-shadow: 
+    0 0 8px rgba(79, 70, 229, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.english-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: progress-shimmer 2s infinite;
+}
+
+@keyframes progress-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* 인터랙티브 호버 */
+.english-interactive {
+  transition: all 300ms ease-out;
+}
+
+.english-interactive:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(79, 70, 229, 0.25);
+}
+
+/* 배경 패턴 */
+.english-pattern-bg {
+  background-color: #fafafa;
+  background-image: 
+    radial-gradient(at 10% 20%, rgba(79, 70, 229, 0.025) 0px, transparent 50%),
+    radial-gradient(at 90% 80%, rgba(99, 102, 241, 0.025) 0px, transparent 50%);
+}
+
+/* 슬라이드 인 애니메이션 */
+@keyframes english-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.english-slide-in-right {
+  animation: english-slide-in-right 0.4s ease-out forwards;
+}
+
+/* 펄스 애니메이션 */
+@keyframes english-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.english-pulse {
+  animation: english-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
